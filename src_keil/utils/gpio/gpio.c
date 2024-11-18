@@ -1,9 +1,9 @@
 #include "stm32f10x.h"
 
-#include "utils.h"
+#include "gpio.h"
 
 // Function to activate any GPIOA pin with specified mode
-void initGpioA(const unsigned char num_bit, const char config) {
+void initGpioA(const unsigned char num_bit, const unsigned char config) {
     unsigned char bit_ref = (num_bit * 4) & 31;
 
     // Activer l'horloge pour GPIOA : RCC->APB2ENR bit 2
@@ -31,5 +31,21 @@ void initGpioB(const unsigned char num_bit, const unsigned char config) {
     } else {
         GPIOB->CRH &= ~(0xF << bit_ref);
         GPIOB->CRH |= (config << bit_ref);
+    }
+}
+
+// Function to activate any GPIOC pin with specified mode
+void initGpioC(const unsigned char num_bit, const unsigned char config) {
+    unsigned char bit_ref = (num_bit * 4) & 31;
+
+    // Enable clock for GPIOC
+    RCC->APB2ENR |= (1 << 4);
+
+    if (num_bit < 8) {
+        GPIOC->CRL &= ~(0xF << bit_ref);
+        GPIOC->CRL |= (config << bit_ref);
+    } else {
+        GPIOC->CRH &= ~(0xF << bit_ref);
+        GPIOC->CRH |= (config << bit_ref);
     }
 }

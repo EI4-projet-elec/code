@@ -1,14 +1,14 @@
 #ifndef HOST_COMMUNICATION_H
 #define HOST_COMMUNICATION_H
 
-void initHostCom();
+#include "../utils/fifo/fifo.h"
 
-void hostComUpdate();
+extern FIFO HOST_UART_COM_FIFO;
+
+void initHostCom();
 
 void hostSend(char data);
 void hostSendString(char* data, int length);
-
-static char hostSendAvailable();
 
 static void initUart2();
 
