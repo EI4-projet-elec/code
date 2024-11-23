@@ -6,6 +6,7 @@
 #include "utils/gpio/gpio.h"
 
 #include "hostCommunication/hostCommunication.h"
+#include "espCommunication/espCommunication.h"
 #include "rfidManager/rfid.h"
 #include "toolsManager/toolsManager.h"
 
@@ -21,9 +22,13 @@ void init() {
     // Init tools manager
     initToolsManager();
 
+    // ESP32 communication
+    initEspCom();
+
     // Init oboard LED
     initGpioA(5, 0b0011);
 
+    // Init tool detection siwtches
     initGpioA(10, 0b1000);
     initGpioB(5, 0b1000);
 }
@@ -39,9 +44,12 @@ void loop() {
         // Tools manager update
         toolsManagerUpdate();
 
+        // ESP32 communication update
+        espComUpdate();
+
         // Copy PA10 to PA5
-        if(GPIOA->IDR & (1 << 10) || GPIOB->IDR & (1 << 5)) GPIOA->ODR = (1 << 5);
-        else GPIOA->ODR &= ~(1 << 5);
+        // if(GPIOA->IDR & (1 << 10) || GPIOB->IDR & (1 << 5)) GPIOA->ODR = (1 << 5);
+        // else GPIOA->ODR &= ~(1 << 5);
     }
 }
 

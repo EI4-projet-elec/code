@@ -12,7 +12,7 @@ void setup() {
   printArray(Serial.list());
   
   // Ouvrir le port série pour la communication (remplacer par le bon port si nécessaire)
-  String portName = Serial.list()[0];  // Utiliser le premier port série trouvé
+  String portName = Serial.list()[1];  // Utiliser le premier port série trouvé
   myPort = new Serial(this, portName, 75000);
 }
 

@@ -2,7 +2,8 @@
 #define TOOLS_MANAGER_H
 
 void initToolsManager();
-
 void toolsManagerUpdate();
+
+void initTimer4();
 
 #endif
